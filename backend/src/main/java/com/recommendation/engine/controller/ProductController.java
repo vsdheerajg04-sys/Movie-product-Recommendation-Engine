@@ -107,4 +107,16 @@ public class ProductController {
     public ResponseEntity<Set<String>> getCategories() {
         return ResponseEntity.ok(productService.getCategories());
     }
+
+    @PostMapping
+    public ResponseEntity<?> createProduct(@RequestBody Product product) {
+        try {
+            Product saved = productService.createProduct(product);
+            return ResponseEntity.ok(saved);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Map.of("error", "Failed to save product"));
+        }
+    }
 }

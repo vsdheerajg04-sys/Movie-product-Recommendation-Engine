@@ -89,4 +89,14 @@ public class MovieService {
 
         return list;
     }
+
+    public Movie createMovie(Movie movie) {
+        if (movie.getTitle() == null || movie.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("Movie title is required");
+        }
+        if (movie.getGenres() == null || movie.getGenres().isEmpty()) {
+            movie.setGenres(List.of("Drama"));
+        }
+        return movieDataStore.addCustomMovie(movie);
+    }
 }

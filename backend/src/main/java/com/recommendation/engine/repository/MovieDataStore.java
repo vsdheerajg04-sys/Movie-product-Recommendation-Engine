@@ -165,6 +165,64 @@ public class MovieDataStore {
                 "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&auto=format&fit=crop&q=80",
                 "A middle-aged Chinese immigrant is swept up into an insane adventure in which she alone can save existence by exploring other universes and connecting with the lives she could have led.",
                 139, 96.5, List.of("multiverse", "absurdist", "family", "oscar best picture", "existentialism"));
+        addMovie("m-19", "Arrival", 2016, List.of("Sci-Fi", "Drama", "Mystery"), "Denis Villeneuve",
+                List.of("Amy Adams", "Jeremy Renner", "Forest Whitaker", "Michael Stuhlbarg"),
+                4.7, 720000, "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&auto=format&fit=crop&q=80",
+                "A linguist works with the military to communicate with alien lifeforms after twelve mysterious spacecraft appear around the world.",
+                116, 92.0, List.of("linguistics", "aliens", "time", "thought-provoking", "denis villeneuve", "sci-fi"));
+
+        addMovie("m-20", "Mad Max: Fury Road", 2015, List.of("Action", "Adventure", "Sci-Fi"), "George Miller",
+                List.of("Tom Hardy", "Charlize Theron", "Nicholas Hoult", "Hugh Keays-Byrne"),
+                4.8, 1100000, "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=1200&auto=format&fit=crop&q=80",
+                "In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search for her homeland with the aid of a group of female prisoners, a psychotic worshiper and an ex-drifter named Max.",
+                120, 95.0, List.of("post-apocalyptic", "car chase", "fury road", "practical effects", "high octane"));
+
+        addMovie("m-21", "The Prestige", 2006, List.of("Drama", "Mystery", "Sci-Fi"), "Christopher Nolan",
+                List.of("Hugh Jackman", "Christian Bale", "Michael Caine", "Scarlett Johansson"),
+                4.8, 1400000, "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1200&auto=format&fit=crop&q=80",
+                "After a tragic accident, two stage magicians in 1890s London engage in a battle to create the ultimate illusion while sacrificing everything they have to outwit each other.",
+                130, 93.8, List.of("illusion", "magic", "rivalry", "nolan", "twist", "tesla"));
+
+        addMovie("m-22", "La La Land", 2016, List.of("Comedy", "Drama", "Music", "Romance"), "Damien Chazelle",
+                List.of("Ryan Gosling", "Emma Stone", "John Legend", "Rosemarie DeWitt"),
+                4.6, 640000, "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&auto=format&fit=crop&q=80",
+                "While navigating their careers in Los Angeles, a pianist and an actress fall in love while attempting to reconcile their aspirations for the future.",
+                128, 89.2, List.of("musical", "jazz", "hollywood", "romance", "cinematography", "dreams"));
+
+        addMovie("m-23", "The Lord of the Rings: The Return of the King", 2003, List.of("Action", "Adventure", "Drama", "Fantasy"), "Peter Jackson",
+                List.of("Elijah Wood", "Viggo Mortensen", "Ian McKellen", "Orlando Bloom"),
+                4.9, 2100000, "https://images.unsplash.com/photo-1533488765986-dfa2a9939acd?w=600&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1533488765986-dfa2a9939acd?w=1200&auto=format&fit=crop&q=80",
+                "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.",
+                201, 99.4, List.of("lotr", "middle earth", "epic fantasy", "oscar sweep", "masterpiece"));
+
+        addMovie("m-24", "Coco", 2017, List.of("Animation", "Adventure", "Family", "Fantasy", "Music"), "Lee Unkrich, Adrian Molina",
+                List.of("Anthony Gonzalez", "Gael Garcia Bernal", "Benjamin Bratt"),
+                4.8, 580000, "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
+                "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1200&auto=format&fit=crop&q=80",
+                "Aspiring musician Miguel, confronted with his family's ancestral ban on music, enters the Land of the Dead to find his great-great-grandfather, a legendary singer.",
+                105, 91.8, List.of("pixar", "day of the dead", "mexico", "family", "music", "emotional"));
+    }
+
+    public synchronized Movie addCustomMovie(Movie movie) {
+        if (movie.getId() == null || movie.getId().trim().isEmpty()) {
+            movie.setId("m-" + (movieMap.size() + 1) + "-" + UUID.randomUUID().toString().substring(0, 4));
+        }
+        if (movie.getPosterUrl() == null || movie.getPosterUrl().trim().isEmpty()) {
+            movie.setPosterUrl("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&auto=format&fit=crop&q=80");
+        }
+        if (movie.getBackdropUrl() == null || movie.getBackdropUrl().trim().isEmpty()) {
+            movie.setBackdropUrl(movie.getPosterUrl());
+        }
+        if (movie.getTrendingScore() == 0.0) {
+            movie.setTrendingScore(85.0 + Math.random() * 10);
+        }
+        movieMap.put(movie.getId(), movie);
+        return movie;
     }
 
     private void addMovie(String id, String title, int year, List<String> genres, String director,

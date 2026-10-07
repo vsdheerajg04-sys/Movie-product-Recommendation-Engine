@@ -87,4 +87,14 @@ public class ProductService {
 
         return list;
     }
+
+    public Product createProduct(Product product) {
+        if (product.getName() == null || product.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Product name is required");
+        }
+        if (product.getCategory() == null || product.getCategory().trim().isEmpty()) {
+            product.setCategory("Electronics");
+        }
+        return productDataStore.addCustomProduct(product);
+    }
 }

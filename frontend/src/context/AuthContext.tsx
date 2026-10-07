@@ -8,7 +8,13 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (identifier: string, pass: string) => Promise<void>;
-  register: (username: string, email: string, pass: string) => Promise<void>;
+  register: (
+    username: string,
+    email: string,
+    pass: string,
+    favoriteMovieGenres?: string[],
+    favoriteProductCategories?: string[]
+  ) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
 }
@@ -31,10 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setUser(profile);
           localStorage.setItem('auth_user', JSON.stringify(profile));
         } catch {
-          setUser(null);
-          setToken(null);
-          localStorage.removeItem('auth_token');
-          localStorage.removeItem('auth_user');
+          // Keep cached user if offline
         }
       }
       setIsLoading(false);
@@ -51,9 +54,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('auth_user', JSON.stringify(u));
   };
 
-  const register = async (username: string, email: string, pass: string) => {
-    const res = await api.register(username, email, pass);
-    const u: User = { id: res.userId, username: res.username, email: res.email };
+  const register = async (
+    username: string,
+    email: string,
+    pass: string,
+    favoriteMovieGenres: string[] = [],
+    favoriteProductCategories: string[] = []
+  ) => {
+    const res = await api.register(username, email, pass, favoriteMovieGenres, favoriteProductCategories);
+    const u: User = {
+      id: res.userId,
+      username: res.username,
+      email: res.email,
+      favoriteMovieGenres,
+      favoriteProductCategories,
+      createdAt: new Date().toISOString(),
+    };
     setToken(res.token);
     setUser(u);
     localStorage.setItem('auth_token', res.token);

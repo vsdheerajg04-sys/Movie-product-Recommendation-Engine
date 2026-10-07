@@ -107,4 +107,16 @@ public class MovieController {
     public ResponseEntity<Set<String>> getGenres() {
         return ResponseEntity.ok(movieService.getGenres());
     }
+
+    @PostMapping
+    public ResponseEntity<?> createMovie(@RequestBody Movie movie) {
+        try {
+            Movie saved = movieService.createMovie(movie);
+            return ResponseEntity.ok(saved);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Map.of("error", "Failed to save movie"));
+        }
+    }
 }

@@ -129,6 +129,52 @@ public class ProductDataStore {
                 "16 million colors and shades of white light. Syncs with Spotify, games, and films. Includes 4 White & Color Ambiance smart bulbs and Hue Bridge.",
                 Map.of("Colors", "16 Million Colors", "Protocol", "Zigbee & Bluetooth", "Compatibility", "Apple HomeKit, Alexa, Google Home", "Power", "75W equivalent"),
                 92.8, List.of("smart home", "lighting", "philips hue", "rgb", "automation", "homekit", "alexa"));
+        addProduct("p-16", "Nintendo Switch OLED Model", "Nintendo", "Gaming", "Consoles",
+                349.99, 4.8, 22000, "https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=600&auto=format&fit=crop&q=80",
+                "7-inch vivid OLED screen, wide adjustable stand, wired LAN port dock, 64GB of internal storage, and enhanced audio in handheld and tabletop modes.",
+                Map.of("Display", "7.0-inch OLED 720p", "Storage", "64GB internal", "Battery", "4.5 to 9 hours", "Modes", "TV, Tabletop, Handheld"),
+                94.8, List.of("nintendo", "switch", "oled", "gaming", "zelda", "mario", "handheld"));
+
+        addProduct("p-17", "Apple iPad Pro 13\" M4", "Apple", "Computing", "Tablets",
+                1299.00, 4.9, 5300, "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80",
+                "Outrageously thin design with Ultra Retina XDR OLED display, breakthrough Apple M4 chip performance, and next-generation Apple Pencil Pro support.",
+                Map.of("Display", "13.0-inch Ultra Retina XDR Tandem OLED", "Processor", "Apple M4 9-Core", "Storage", "256GB SSD", "Thickness", "5.1 mm"),
+                97.2, List.of("apple", "ipad", "tablet", "m4", "retina", "oled", "procreate", "computing"));
+
+        addProduct("p-18", "Elgato Stream Deck MK.2", "Elgato", "Computing", "Streaming",
+                149.99, 4.8, 16500, "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format&fit=crop&q=80",
+                "15 customizable LCD keys to control apps and platforms like OBS, Twitch, YouTube, and Spotify with one-touch tactile operation.",
+                Map.of("Keys", "15 customizable LCD keys", "Interface", "USB 2.0", "Support", "Windows / macOS", "Plate", "Detachable Faceplate"),
+                91.0, List.of("elgato", "stream deck", "streaming", "creator", "macros", "twitch", "youtube"));
+
+        addProduct("p-19", "GoPro HERO12 Black Action Camera", "GoPro", "Photography", "Cameras",
+                399.99, 4.7, 7200, "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&auto=format&fit=crop&q=80",
+                "Incredible 5.3K60 video, HDR video & photo, HyperSmooth 6.0 stabilization with 360-degree Horizon Lock, and rugged waterproof design to 33ft.",
+                Map.of("Video", "5.3K 60fps / 4K 120fps", "Stabilization", "HyperSmooth 6.0", "Waterproof", "10m (33ft) without housing", "Battery", "Enduro Battery"),
+                93.0, List.of("gopro", "action camera", "4k", "5k", "waterproof", "hypersmooth", "travel", "sports"));
+
+        addProduct("p-20", "Meta Quest 3 Mixed Reality VR Headset", "Meta", "Gaming", "VR",
+                499.99, 4.8, 9800, "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=600&auto=format&fit=crop&q=80",
+                "Breakthrough mixed reality transforms your home into an immersive gaming playground with 4K+ Infinite Display and Snapdragon XR2 Gen 2 power.",
+                Map.of("Display", "4K+ Infinite Display (2064x2208 per eye)", "Processor", "Snapdragon XR2 Gen 2", "Pass-through", "High-res Full Color", "Audio", "3D Spatial"),
+                96.4, List.of("vr", "meta quest", "mixed reality", "gaming", "virtual reality", "4k", "headset"));
+    }
+
+    public synchronized Product addCustomProduct(Product product) {
+        if (product.getId() == null || product.getId().trim().isEmpty()) {
+            product.setId("p-" + (productMap.size() + 1) + "-" + UUID.randomUUID().toString().substring(0, 4));
+        }
+        if (product.getImageUrl() == null || product.getImageUrl().trim().isEmpty()) {
+            product.setImageUrl("https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80");
+        }
+        if (product.getTrendingScore() == 0.0) {
+            product.setTrendingScore(85.0 + Math.random() * 10);
+        }
+        if (product.getSpecs() == null) {
+            product.setSpecs(new HashMap<>());
+        }
+        productMap.put(product.getId(), product);
+        return product;
     }
 
     private void addProduct(String id, String name, String brand, String category, String subcategory,
